@@ -1,2 +1,18 @@
-﻿  Program.c
-  Ex02.vcxproj -> c:\users\eugene_s\documents\visual studio 2010\Projects\Ex02\Debug\Ex02.exe
+﻿Build started 23/12/2017 22:32:54.
+     1>Project "C:\Git\HITC_ex02\Ex02\Ex02.vcxproj" on node 2 (build target(s)).
+     1>InitializeBuildStatus:
+         Touching "Debug\Ex02.unsuccessfulbuild".
+       ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TC /analyze- /errorReport:prompt Program.c
+         Program.c
+     1>c:\git\hitc_ex02\ex02\program.c(128): warning C4047: 'function' : 'int *' differs in levels of indirection from 'char (*)[23]'
+     1>c:\git\hitc_ex02\ex02\program.c(128): warning C4024: 'RebuildArray' : different types for formal and actual parameter 1
+     1>c:\git\hitc_ex02\ex02\program.c(131): warning C4028: formal parameter 1 different from declaration
+     1>c:\git\hitc_ex02\ex02\program.c(135): warning C4133: 'initializing' : incompatible types - from 'char *' to 'int *'
+     1>c:\git\hitc_ex02\ex02\program.c(135): error C2143: syntax error : missing ';' before 'while'
+     1>c:\git\hitc_ex02\ex02\program.c(152): warning C4133: '=' : incompatible types - from 'char *' to 'int *'
+     1>Done Building Project "C:\Git\HITC_ex02\Ex02\Ex02.vcxproj" (build target(s)) -- FAILED.
+
+Build FAILED.
+
+Time Elapsed 00:00:00.28
