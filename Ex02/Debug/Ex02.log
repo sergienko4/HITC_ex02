@@ -1,3 +1,5 @@
 ﻿  Program.c
-c:\hit\hitc_ex02\ex02\program.c(159): warning C4101: 'id' : unreferenced local variable
-  Ex02.vcxproj -> C:\hit\HITC_ex02\Debug\Ex02.exe
+c:\hit\hitc_ex02\ex02\program.c(49): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+          c:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(304) : see declaration of 'scanf'
+c:\hit\hitc_ex02\ex02\program.c(173): warning C4101: 'id' : unreferenced local variable
+LINK : fatal error LNK1104: cannot open file 'C:\hit\HITC_ex02\Debug\Ex02.exe'

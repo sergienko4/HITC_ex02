@@ -27,26 +27,36 @@ void PrintArray(int*, int);
 
 void main() {
 
-	//Ex01();
+	Ex01();
 	//Ex02();
 	//Ex03();
 	//Ex04();
 	//Ex05();
-	Ex06();
+	//Ex06();
 }
 
 
 void Ex01() {
 
-	int length;
+	int length = 10;
+	int counter = 0, i = 0 ;
 	int result = 0;
-	int arry[] = { -50,-10,-10,72,81,81,81,81,93,93 };
-	length = sizeof(arry) / sizeof(int);
-	result= GetDef(arry, length);
+	int* data = (int*)malloc(length * sizeof(int));
+	
+	for (i = 0; i < length; i++)
+	{
+		printf("Please enter the: %d number of %d \n", (i + 1), length);
+		scanf("%d", (data + i));
+	}
+
+
+
+	result = GetDef(data, length);
 	printf("%d return value is: ", &result);
-	free(arry);
+	free(data);
 
 }
+
 int GetDef(int* arraP, int length) {
 	// counter start on one because one number is must be.
 	int counter = 1, index = 0, poze = 0;
@@ -191,8 +201,8 @@ void Ex05() {
 int CountArratZugiLength(int* array, int length) {
 
 	int counter = 0;
-	int value = array[length-1];
-	if (length-1 == 0 && value % 2 == 0)
+	int value = array[length - 1];
+	if (length - 1 == 0 && value % 2 == 0)
 		counter++;
 	else {
 		counter = CountArratZugiLength(array, (length - 1));
@@ -218,8 +228,8 @@ void PrintArray(int* input, int length)
 		PrintArray(input, (length - 1));
 		printf("\n");
 	}
-	
-	while (poz<=index)
+
+	while (poz <= index)
 	{
 		printf("%d", input[poz]);
 		poz++;
