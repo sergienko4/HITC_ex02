@@ -10,11 +10,11 @@ void Ex02();
 int RecursionEx02(int);
 
 void Ex03();
-int CheckArrayEx03(char*, int, char*, int, char *, int);
+int CheckArrayEx03(char*, char*, char *);
 
 
 void Ex04();
-void RebuildArray(char*, int);
+void RebuildArray(char*);
 
 void Ex05();
 int CountArratZugiLength(int*, int);
@@ -27,10 +27,10 @@ void PrintArray(int*, int);
 
 void main() {
 
-	Ex01();
+	//Ex01();
 	//Ex02();
 	//Ex03();
-	//Ex04();
+	Ex04();
 	//Ex05();
 	//Ex06();
 }
@@ -38,21 +38,34 @@ void main() {
 
 void Ex01() {
 
-	int length = 10;
-	int counter = 0, i = 0 ;
+	int length;
+	int counter = 0, i = 0;
 	int result = 0;
-	int* data = (int*)malloc(length * sizeof(int));
-	
+	int* data;
+	printf("Enter the number of number do you want to enter \n");
+	scanf("%d", &length);
+
+	data = (int*)malloc(length * sizeof(int));
+
+	// get input from user
 	for (i = 0; i < length; i++)
 	{
 		printf("Please enter the: %d number of %d \n", (i + 1), length);
 		scanf("%d", (data + i));
+
+		if (i != 0)
+		{
+			// check if the number bigger or equal to previous
+			if (data[i - 1] > data[i]) {
+				printf("The number must bigger or equal to previous ");
+				i--;
+			}
+
+		}
 	}
 
-
-
 	result = GetDef(data, length);
-	printf("%d return value is: ", &result);
+	printf("return value is: %d \n", result);
 	free(data);
 
 }
@@ -80,45 +93,70 @@ int GetDef(int* arraP, int length) {
 }
 
 void Ex02() {
-	int result = RecursionEx02(9999);
-	printf("%d return value is: ", &result);
+	int input = -1, result;
+	while (input < 1) {
+		printf("Please enter a number bigger than 0 \n");
+		scanf("%d", &input);
+	}
+	result = RecursionEx02(input);
+	printf("return value is: %d ", &result);
 }
 int RecursionEx02(int n) {
 	int d, temp;
 
 	if (n < 10) {
 		// get unit ++ and return new value
-		return n++ % 10;
+		return (n = n + 1) % 10;
 	}
 	else
 	{
-		d = RecursionEx02(n / 10) * 10;
+		d = RecursionEx02(n / 10);
+		d = d * 10;
 		// get unit
-		temp = (++n) % 10;
+		temp = (n + 1) % 10;
 		// add to result number the new unit 
 		return  d + temp;
 	}
 }
-
-
 void Ex03() {
 	int result = 0;
 	char s[] = "c";
 	char s1[] = "baaacab";
 	char s2[] = "ababab";
-	result = CheckArrayEx03(s1, strlen(s1), s2, strlen(s2), s, strlen(s));
-	printf("%d return value is: ", &result);
+
+	//get input from user
+
+	// static array
+	char str1[51];
+	char str2[51];
+	char str[51];
+	printf("Enter a string s1 ( not more that 50 chars) \n");
+	gets(str1);
+
+	printf("Enter a string s2 ( not more that 50 chars) \n");
+	gets(str2);
+
+	printf("Enter a string s ( not more that 50 chars) \n");
+	gets(str);
+
+	result = CheckArrayEx03(str1, str2, str);
+	printf("return value is: %d \n", result);
 }
 
-int CheckArrayEx03(char *s1, int s1Lenght, char *s2, int s2Lenght, char *s, int sLenght) {
+int CheckArrayEx03(char *s1, char *s2, char *s) {
 	int counter = 0;
 	int result = 1;
 	int code;
+	int s1length, s2length, slength;
 	int arry[26] = { 0 };
 
+	// get length of the strings
+	s1length = strlen(s1);
+	s2length = strlen(s2);
+	slength = strlen(s);
 
 	// count s1 string
-	while (counter < s1Lenght) {
+	while (counter < s1length) {
 		code = s1[counter] - 'a';
 		arry[code] ++;
 		counter++;
@@ -126,7 +164,7 @@ int CheckArrayEx03(char *s1, int s1Lenght, char *s2, int s2Lenght, char *s, int 
 	counter = 0;
 
 	// count s2 string
-	while (counter < s2Lenght) {
+	while (counter < s2length) {
 		code = s2[counter] - 'a';
 		arry[code] --;
 		counter++;
@@ -134,12 +172,12 @@ int CheckArrayEx03(char *s1, int s1Lenght, char *s2, int s2Lenght, char *s, int 
 	counter = 0;
 
 	// check if mach the rules
-	while (counter < sLenght) {
+	while (counter < slength) {
 		code = s[counter] - 'a';
 		if (arry[code] < 0)
 		{
 			result = 0;
-			counter = sLenght;
+			counter = slength;
 		}
 		else
 			arry[code] = 0;
@@ -147,7 +185,7 @@ int CheckArrayEx03(char *s1, int s1Lenght, char *s2, int s2Lenght, char *s, int 
 	}
 	//heck if has more latter than in s
 	counter = 0;
-	while (counter < sLenght && result == 1) {
+	while (counter < slength && result == 1) {
 		code = s[counter] - 'a';
 		if (arry[counter] > 0) {
 			counter = 26;
@@ -161,17 +199,28 @@ int CheckArrayEx03(char *s1, int s1Lenght, char *s2, int s2Lenght, char *s, int 
 
 void Ex04() {
 
-	char string[] = "bssdffFdcrrrtttii ***#";
+	char* input, length, i;
+	input = (char*)malloc(51 * sizeof(char));
+
+
+	printf("Enter a string ( not more that 50 chars) \n");
+	gets(input);
 	// how to pass the reference of the pointer 
-	RebuildArray(string, strlen(string));
+	RebuildArray(input);
+
+	printf("reult: %s \n", input);
 
 }
-void RebuildArray(char* input, int lenght) {
-
+void RebuildArray(char* input) {
+	int length;
 	int index = 1, counter = 0, poze = 0;
 	//int *p = *arr;
-	int *id;
-	while (index < lenght) {
+	char* newArray;
+
+	// get array length
+	length = strlen(input);
+
+	while (index < length && input[index] != '\0') {
 
 		if (input[poze] != input[index])
 		{
@@ -187,6 +236,11 @@ void RebuildArray(char* input, int lenght) {
 			index++;
 	}
 
+	counter++;
+	// cut the array
+	if (length > 1)
+		input[counter] = '\0';
+	
 	// resize the string
 	//id = (char *)realloc(input, counter*sizeof(char));
 
