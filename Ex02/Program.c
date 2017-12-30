@@ -3,6 +3,10 @@
 #include<stdlib.h>
 #include<malloc.h>
 
+
+// was created by Eugene Sergienko ID- 31407657 & Shlomi Hanan ID- 300908886
+
+
 void Ex01();
 int GetDef(int*, int);
 
@@ -25,14 +29,32 @@ int CountArratZugiLength(int*, int);
 void Ex06();
 void PrintArray(int*, int);
 
-void main() {
+int main() {
 
-	//Ex01();
-	//Ex02();
-	//Ex03();
-	Ex04();
-	//Ex05();
-	//Ex06();
+	int select=0, i, all_Ex_in_loop=0;
+	printf("Run menu once or cyclically?\n(Once - enter 0, cyclically - enter other number) ");
+	if (scanf_s("%d", &all_Ex_in_loop) == 1)
+		do
+		{
+			for (i=1; i<=6; i++)
+				printf("Ex%d--->%d\n", i, i);
+			printf("EXIT-->0\n");
+			do {
+				select=0;
+				printf("please select 0-6 : ");
+				scanf_s("%d",&select);
+			} while ((select<0)||(select>6));
+			switch (select)
+			{
+			case 1: Ex01(); break;
+			case 2: Ex02(); break;
+			case 3: Ex03(); break;
+			case 4: Ex04(); break;
+			case 5: Ex05(); break;
+			case 6: Ex06(); break;
+			}
+		} while (all_Ex_in_loop && select);
+		return 0;
 }
 
 
@@ -69,7 +91,6 @@ void Ex01() {
 	free(data);
 
 }
-
 int GetDef(int* arraP, int length) {
 	// counter start on one because one number is must be.
 	int counter = 1, index = 0, poze = 0;
@@ -91,7 +112,6 @@ int GetDef(int* arraP, int length) {
 	}
 	return counter;
 }
-
 void Ex02() {
 	int input = -1, result;
 	while (input < 1) {
@@ -99,7 +119,7 @@ void Ex02() {
 		scanf("%d", &input);
 	}
 	result = RecursionEx02(input);
-	printf("return value is: %d ", &result);
+	printf("return value is: %d \n", result);
 }
 int RecursionEx02(int n) {
 	int d, temp;
@@ -119,30 +139,37 @@ int RecursionEx02(int n) {
 	}
 }
 void Ex03() {
-	int result = 0;
-	char s[] = "c";
-	char s1[] = "baaacab";
-	char s2[] = "ababab";
-
-	//get input from user
+	int result = 0, length=1;
 
 	// static array
-	char str1[51];
-	char str2[51];
-	char str[51];
-	printf("Enter a string s1 ( not more that 50 chars) \n");
-	gets(str1);
+	char* str1;
+	char* str2;
+	char* str;
+	str1 = (char*)malloc(20 * sizeof(char));
+	str2 = (char*)malloc(20 * sizeof(char));
+	str = (char*)malloc(20 * sizeof(char));
 
-	printf("Enter a string s2 ( not more that 50 chars) \n");
-	gets(str2);
+	// get input
+	printf("Enter a string s1 \n");
+	scanf("%s",str1);
+	flushall();
 
-	printf("Enter a string s ( not more that 50 chars) \n");
-	gets(str);
+	printf("Enter a string s2 \n");
+	scanf("%s",str2);
+	flushall();
+
+	printf("Enter a string s \n");
+	scanf("%s",str);
+	flushall();
 
 	result = CheckArrayEx03(str1, str2, str);
 	printf("return value is: %d \n", result);
+	
+	// revome memory
+	free(str1);
+	free(str2);
+	free(str);
 }
-
 int CheckArrayEx03(char *s1, char *s2, char *s) {
 	int counter = 0;
 	int result = 1;
@@ -193,29 +220,24 @@ int CheckArrayEx03(char *s1, char *s2, char *s) {
 		}
 		counter++;
 	}
-	//free(*arry);
 	return result;
 }
-
 void Ex04() {
+	char* input;
+	input = (char*)malloc(10 * sizeof(char));
 
-	char* input, length, i;
-	input = (char*)malloc(51 * sizeof(char));
-
-
-	printf("Enter a string ( not more that 50 chars) \n");
+	printf("Enter a string \n");
+	flushall();
 	gets(input);
 	// how to pass the reference of the pointer 
 	RebuildArray(input);
 
 	printf("reult: %s \n", input);
-
+	free(input);
 }
 void RebuildArray(char* input) {
 	int length;
 	int index = 1, counter = 0, poze = 0;
-	//int *p = *arr;
-	char* newArray;
 
 	// get array length
 	length = strlen(input);
@@ -235,49 +257,76 @@ void RebuildArray(char* input) {
 		else
 			index++;
 	}
-
 	counter++;
 	// cut the array
 	if (length > 1)
 		input[counter] = '\0';
-	
-	// resize the string
-	//id = (char *)realloc(input, counter*sizeof(char));
-
 }
 
 void Ex05() {
-	int result = 0;
-	int array[] = { 4, 4, 8, 0, 1, 2, 7, 8 };
-	result = CountArratZugiLength(array, sizeof(array) / sizeof(int));
-	printf("%d return value is: ", &result);
+	int length, result, i;
+	// array 
+	int* data;
+
+	printf("Enter the number of number do you want to enter \n");
+	scanf("%d", &length);
+	// create array
+	data = (int*)malloc(length * sizeof(int));
+
+	// get input from user
+	for (i = 0; i < length; i++)
+	{
+		printf("Please enter the: %d number of %d \n", (i + 1), length);
+		scanf("%d", (data + i));
+	}
+
+	result = CountArratZugiLength(data, length);
+	// print result
+	printf("return value is: %d \n", result);
+	// remove memory 
+	free(data);
 }
-int CountArratZugiLength(int* array, int length) {
+int CountArratZugiLength(int* list, int length) {
 
 	int counter = 0;
-	int value = array[length - 1];
-	if (length - 1 == 0 && value % 2 == 0)
+
+	// get value
+	int value = list[length - 1];
+	// check if zugi
+	if(value % 2 == 0)
 		counter++;
-	else {
-		counter = CountArratZugiLength(array, (length - 1));
-		if (value % 2 == 0)
-			counter++;
-	}
+	// not last call to recursion
+	if (length - 1 != 0)
+		counter += CountArratZugiLength(list, (length - 1));
 	return counter;
 }
 
 void Ex06() {
-	int array[] = { 9,0,2,6 };
-	PrintArray(array, sizeof(array) / sizeof(int));
+	// array 
+	int* data;
+
+	int length,i;
+	// get size of the array 
+	printf("Enter the number of number do you want to enter \n");
+	scanf("%d", &length);
+	// create array
+	data = (int*)malloc(length * sizeof(int));
+
+	// get input from user
+	for (i = 0; i < length; i++)
+	{
+		printf("Please enter the: %d number of %d \n", (i + 1), length);
+		scanf("%d", (data + i));
+	}
+
+	PrintArray(data, length);
+	free(data);
 }
 void PrintArray(int* input, int length)
 {
 	int poz = 0;
 	int index = length - 1;
-	if (index == 0)
-	{
-	}
-	else
+	if (index != 0)
 	{
 		PrintArray(input, (length - 1));
 		printf("\n");
@@ -288,6 +337,5 @@ void PrintArray(int* input, int length)
 		printf("%d", input[poz]);
 		poz++;
 	}
-
 }
 
